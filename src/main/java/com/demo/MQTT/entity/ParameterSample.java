@@ -32,11 +32,11 @@ public class ParameterSample {
 
     public ParameterSample(SampleDTO sampleDTO){
         this.timeAt = sampleDTO.getTimeAt();
-        this.VL = sampleDTO.getVL();
-        this.IL = sampleDTO.getIL();
+        this.VL = sampleDTO.getVL() * 1000; // V
+        this.IL = sampleDTO.getIL(); // mA
         this.Ta = sampleDTO.getTa();
         this.humidity = sampleDTO.getHumidity();
-        this.power = sampleDTO.getIL() * sampleDTO.getVL();
+        this.power = sampleDTO.getIL() * sampleDTO.getVL(); // mW
     }
 
 }

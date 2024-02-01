@@ -22,20 +22,21 @@ public class RunServer {
     }
 
     public void run(){
-        String TOPIC1 = "#";
+        String TOPIC1 = "solar_LabICN";
         String TOPIC2 = "$SYS/#";
-        String clientId = "mqtt-explorer-e7ca42a5";
+        String clientId = "esp8266";
 
-        char[] password = {'F','A','6','4','3','D','5','4','A','1','8','6','4','8','F','2'};
+        char[] password = {'2', 'b', 'c', 'f', 'j', 'k', 'q', 'u', 'v', 'y'};
+        char[] passwordTest = {};
         try {
-            IMqttClient subscriber = new MqttClient("tcp://27.71.232.86:1111", clientId, new MemoryPersistence());
+            IMqttClient subscriber = new MqttClient("tcp://test.mosquitto.org:1883", clientId, new MemoryPersistence());
             MqttConnectOptions options = new MqttConnectOptions();
             options.setAutomaticReconnect(true);
             options.setCleanSession(false);
             options.setConnectionTimeout(61000);
             options.setKeepAliveInterval(100);
-            options.setUserName("solarpanels");
-            options.setPassword(password);
+            options.setUserName("");
+            options.setPassword(passwordTest);
             subscriber.connect(options);
             System.out.println("Connected!");
             AtomicInteger messageCount = new AtomicInteger(0);
@@ -45,6 +46,7 @@ public class RunServer {
             // thay đổi quy trình xử lí sẽ làm kết quả bị lỗi không như mong đợi!!!
             SampleDTO sample = new SampleDTO(); // chỉ tạo 1 instance trong khi mình muốn luôn luôn làm mới các instance
             subscriber.subscribe(TOPIC1, (topicReceived, message) -> {
+                System.out.println(topicReceived + "-----" + new String(message.getPayload()));
                 sample.setTimeAt(LocalDateTime.now());
                 String payload = new String(message.getPayload());
                 if(topicReceived.substring(12).equals("loadvoltage")){
@@ -60,7 +62,8 @@ public class RunServer {
                     sample.setHumidity(Math.round(Float.parseFloat(payload)));
                 }
 //				sample.setTimeAt(LocalDateTime.now());
-//				sample.setPower(sample.getIL() * sample.getVL());
+//				sample.setPower((sample.getIL() * sample.getVL())/1000);
+                // đã setPower trong contructor sample
 //                System.out.println(sample.getIL());
 
                 int currentCount = messageCount.incrementAndGet();
@@ -80,7 +83,7 @@ public class RunServer {
                     //sample_save = sample;
                     //sampleRepo.save(sample_save);
                     System.out.println(sample_save.getTimeAt());
-                    sampleRepo.save(sample_save);
+                    //sampleRepo.save(sample_save);
                 }
 
             });
