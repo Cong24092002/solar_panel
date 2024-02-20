@@ -29,4 +29,10 @@ public class User {
     private LocalDateTime createdAt;
     @Column(name = "edited_at")
     private LocalDateTime EditedAt;
+
+    public User(){
+        this.name = "ICN Lab";
+        this.address = "VT1-PTIT";
+        this.roleCode = "AD";
+    }
 }

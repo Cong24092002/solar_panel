@@ -22,20 +22,20 @@ public class RunServer {
     }
 
     public void run(){
-        String TOPIC1 = "solar_LabICN";
+        String TOPIC1 = "ducthang906@gmail.com/loadvoltage";
         String TOPIC2 = "$SYS/#";
-        String clientId = "esp8266";
+        String clientId = "thang2.4";
 
         char[] password = {'2', 'b', 'c', 'f', 'j', 'k', 'q', 'u', 'v', 'y'};
-        char[] passwordTest = {};
+        char[] passwordTest = {'d','u','c','t','h','a','n','g','0','8','0','5','2','0','0','2'};
         try {
-            IMqttClient subscriber = new MqttClient("tcp://test.mosquitto.org:1883", clientId, new MemoryPersistence());
+            IMqttClient subscriber = new MqttClient("tcp://maqiatto.com:1883", clientId, new MemoryPersistence());
             MqttConnectOptions options = new MqttConnectOptions();
             options.setAutomaticReconnect(true);
             options.setCleanSession(false);
             options.setConnectionTimeout(61000);
             options.setKeepAliveInterval(100);
-            options.setUserName("");
+            options.setUserName("ducthang906@gmail.com");
             options.setPassword(passwordTest);
             subscriber.connect(options);
             System.out.println("Connected!");
