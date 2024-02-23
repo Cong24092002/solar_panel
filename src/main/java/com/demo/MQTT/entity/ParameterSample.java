@@ -20,11 +20,14 @@ public class ParameterSample {
     @Column(name = "time_at")
     private LocalDateTime timeAt;
 
+    @Column(name = "VL (V)")
     private Float VL;
+    @Column(name = "IL (mI)")
     private Float IL;
     private Float Ta;
     private Integer humidity;
     private Float G;
+    @Column(name = "power (mW)")
     private Float power;
     private Float effciency;
     @Column(name = "sys_id")
@@ -32,11 +35,13 @@ public class ParameterSample {
 
     public ParameterSample(SampleDTO sampleDTO){
         this.timeAt = sampleDTO.getTimeAt();
-        this.VL = sampleDTO.getVL() * 1000; // V
+        this.VL = sampleDTO.getVL(); // V
         this.IL = sampleDTO.getIL(); // mA
-        this.Ta = sampleDTO.getTa();
-        this.humidity = sampleDTO.getHumidity();
-        this.power = sampleDTO.getIL() * sampleDTO.getVL(); // mW
+        this.Ta = sampleDTO.getTa(); // nhiet do
+        this.humidity = sampleDTO.getHumidity(); // do am
+        this.power = sampleDTO.getPower(); // mW
+        this.G = sampleDTO.getG();
+        this.effciency = sampleDTO.getEffciency();
     }
 
 }
